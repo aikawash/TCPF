@@ -1,0 +1,72 @@
+TCPF RIGHT POINTS:
+
+
+   PERS tooldata testool01R:=[TRUE,[[3.80559,0.323837,139.804],[0.94712,-0.0622232,-0.31411,-0.0206362]],[1,[1,1,1],[1,0,0,0],0,0,0]];
+
+
+
+
+TCPF LEFT POINTS:
+
+
+   PERS tooldata testool01L:=[TRUE,[[1.10666,2.18285,140.938],[0.873465,0.406054,-0.243623,-0.113255]],[1,[1,1,1],[1,0,0,0],0,0,0]];
+
+
+
+
+PROG01R:
+
+
+MODULE MainModule
+    PERS tasks all_tasks{2} := [["T_ROB_R"],["T_ROB_L"]];
+    VAR syncident sync1;
+    VAR syncident sync2;
+    VAR syncident sync3;
+    PERS tooldata testool01R:=[TRUE,[[3.80559,0.323837,139.804],[0.94712,-0.0622232,-0.31411,-0.0206362]],[1,[1,1,1],[1,0,0,0],0,0,0]];
+    PROC main()
+		MoveL [[455.94,-92.55,218.65],[0.894415,-0.0251437,0.44299,0.0561264],[-2,-3,1,0],[143.634,9E+09,9E+09,9E+09,9E+09,9E+09]], v1000, z50, testool01R;
+		WaitSyncTask sync1 , all_tasks;
+        MoveL [[576.22,-92.56,218.64],[0.894411,-0.0251365,0.442998,0.0561233],[-2,-3,1,0],[143.696,9E+09,9E+09,9E+09,9E+09,9E+09]], v1000, z50, testool01R;
+		WaitTime \InPos, 0.5;
+		WaitSyncTask sync2, all_tasks;
+        Hand_GripInward;
+		WaitTime \InPos, 0.5;
+		MoveL [[576.21,-92.58,127.40],[0.894409,-0.0251408,0.443006,0.0560996],[-1,-3,1,0],[138.732,9E+09,9E+09,9E+09,9E+09,9E+09]], v1000, z50, testool01R;
+		WaitTime \InPos, 0.5;
+        WaitSyncTask sync3, all_tasks;
+		Hand_GripOutward;
+       
+	ENDPROC
+ENDMODULE
+
+
+
+
+PROG01L:
+
+
+MODULE MainModule
+    PERS tasks all_tasks{2} := [["T_ROB_R"],["T_ROB_L"]];
+    VAR syncident sync1;
+    VAR syncident sync2;
+    VAR syncident sync3;
+    PERS tooldata testool01L:=[TRUE,[[1.10666,2.18285,140.938],[0.873465,0.406054,-0.243623,-0.113255]],[1,[1,1,1],[1,0,0,0],0,0,0]];
+    PROC main()
+		MoveL [[319.99,325.66,920.36],[0.97125,0.0773272,0.0948678,-0.20419],[-1,-1,1,5],[130.368,9E+09,9E+09,9E+09,9E+09,9E+09]], v1000, z50, testool01L;
+		WaitSyncTask sync1 , all_tasks;
+        MoveL [[501.02,320.57,851.57],[0.88959,0.230175,0.392629,-0.0386131],[-1,-1,1,5],[157.061,9E+09,9E+09,9E+09,9E+09,9E+09]], v1000, z50, testool01L;
+		WaitTime \InPos, 0.5;
+		WaitSyncTask sync2, all_tasks;
+        Hand_GripInward;
+		WaitTime \InPos, 0.5;
+		MoveL [[555.69,320.58,650.08],[0.889585,0.23019,0.392632,-0.0386002],[-1,0,1,5],[156.954,9E+09,9E+09,9E+09,9E+09,9E+09]], v1000, z50, testool01L;
+		WaitTime \InPos, 0.5;
+        WaitSyncTask sync3, all_tasks;
+		Hand_GripOutward;
+       
+	ENDPROC
+ENDMODULE
+
+
+
+
